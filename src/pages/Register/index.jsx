@@ -1,29 +1,33 @@
 import { Button, Input, Stack } from '@mui/material';
-import { useRegisterMutation } from 'api/auth';
+import { useSignupMutation } from 'api/auth';
 import AuthContainer from 'components/AuthContainer';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GoEye, GoEyeClosed } from 'react-icons/go';
+
+import PasswordInput from 'components/PasswordInput';
 
 const Register = () => {
   const navigate = useNavigate();
-  const [register, { isSuccess }] = useRegisterMutation();
-  const [name, setName] = useState('');
-  const [mail, setMail] = useState('');
-  const [password, setPassword] = useState('');
-  const [type, setType] = useState(false);
+  const [register, { isSuccess, error }] = useSignupMutation();
 
-  const toggleBtn = () => {
-    setType(prevType => !prevType);
-  };
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   useEffect(() => {
     if (isSuccess) {
       navigate('/contacts');
     }
-  }, [isSuccess]);
 
-  const onSubmit = () => {
-    register({ name, mail, password, type });
+    if (error) {
+      alert(error?.data?.message ?? 'Something went wrong');
+    }
+  }, [isSuccess, error]);
+
+  const onSubmit = e => {
+    e.preventDefault();
+
+    register({ name, email, password });
   };
 
   return (
@@ -37,21 +41,13 @@ const Register = () => {
           />
           <Input
             placeholder="Mail"
-            value={mail}
-            onChange={e => setMail(e.target.value)}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
           />
-          <div>
-            <Input
-              type={type ? 'text' : 'password'}
-              placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-            <Button onClick={toggleBtn}>
-              {type ? <GoEyeClosed /> : <GoEye />}
-            </Button>
-          </div>
-
+          <PasswordInput
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
           <Button variant="contained" type="submit">
             Registration
           </Button>

@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
-import './ContactForm.module.css';
+import classes from './ContactForm.module.css';
 import { useAddContactMutation, useGetContactsQuery } from 'api/contacts';
 
 const ContactForm = () => {
@@ -19,9 +18,8 @@ const ContactForm = () => {
     event.preventDefault();
 
     const contact = {
-      id: nanoid(),
       name,
-      phone,
+      number: phone,
     };
     const isContactAlreadyExist = contacts?.some(
       contact => contact.phone === phone || contact.name === name
@@ -37,7 +35,7 @@ const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className={classes.form} onSubmit={handleSubmit}>
       <input
         type="text"
         name="name"

@@ -1,8 +1,10 @@
+import { Typography } from '@mui/material';
+
 const Home = () => {
   return (
-    <div>
-      <p>Welcome</p>
-    </div>
+    <Typography pt={5} variant="h3" textAlign="center">
+      Welcome to page!
+    </Typography>
   );
 };
 
