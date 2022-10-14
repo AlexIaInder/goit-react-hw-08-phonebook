@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [login, { isSuccess }] = useLoginMutation();
+  const [login, { isSuccess, error }] = useLoginMutation();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,7 +16,11 @@ const Login = () => {
     if (isSuccess) {
       navigate('/contacts');
     }
-  }, [isSuccess]);
+
+    if (error) {
+      alert(error?.data?.message ?? 'Something went wrong');
+    }
+  }, [isSuccess, navigate, error]);
 
   const onSubmit = e => {
     e.preventDefault();

@@ -22,7 +22,7 @@ const Register = () => {
     if (error) {
       alert(error?.data?.message ?? 'Something went wrong');
     }
-  }, [isSuccess, error]);
+  }, [isSuccess, error, navigate]);
 
   const onSubmit = e => {
     e.preventDefault();
