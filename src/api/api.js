@@ -4,7 +4,7 @@ import { CacheTags } from './CacheTags';
 export const api = createApi({
   reducerPath: 'api',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://634455d9dcae733e8fdd1358.mockapi.io/',
+    baseUrl: 'https://connections-api.herokuapp.com/',
   }),
   tagTypes: Object.values(CacheTags),
   endpoints: () => ({}),
