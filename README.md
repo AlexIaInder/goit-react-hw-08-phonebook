@@ -1,1 +1,1 @@
-goit-react-hw-06-phonebook working with Redux Toolkit
+goit-react-hw-08-phonebook working with registration login and password 
